@@ -1,0 +1,71 @@
+/* src/components/MessageContainer/MessageContainer.css */
+
+.message-container {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 내 메시지 스타일 */
+.my-message-container {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+.my-message {
+    background-color: #fef01b;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 60%;
+    word-break: break-all;
+}
+
+/* 상대방 메시지 스타일 */
+.your-message-container {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: flex-start;
+}
+
+.your-message {
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 60%;
+    word-break: break-all;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* 시스템 메시지 (OO님이 입장했습니다) */
+.system-message-container {
+    display: flex;
+    justify-content: center;
+}
+
+.system-message {
+    color: #888;
+    font-size: 0.8rem;
+    padding: 5px;
+}
+
+.your-message-content {
+  display: flex;
+  flex-direction: column; /* 이름과 메시지를 세로로 쌓기 위함 */
+  align-items: flex-start;
+}
+
+/* 사용자 이름 스타일 */
+.user-name {
+  font-size: 0.85rem; /* 글씨 크기 살짝 작게 */
+  color: #555; /* 글씨 색상 */
+  margin-bottom: 4px; /* 메시지 버블과의 간격 */
+  margin-left: 2px;
+}
