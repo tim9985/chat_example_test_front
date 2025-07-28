@@ -32,6 +32,7 @@ function App() {
     const handleMessage = (newMessage) => {
       setMessageList((prevState) => [...prevState, newMessage]);
     };
+    
     socket.on("message", handleMessage);
 
     // 3. 사용자 이름 묻기 (로그인 정보가 없을 때만)
