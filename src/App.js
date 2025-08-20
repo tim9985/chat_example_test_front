@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import socket from "./server";
+import Draggable from "react-draggable";
 import InputField from "./components/InputField/InputField";
 import MessageContainer from "./components/MessageContainer/MessageContainer";
 import LoginModal from "./components/LoginModal/LoginModal";
+import UserList from "./components/UserList/UserList";
 
 function App() {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+  const [userList, setUserList] = useState([]);
+
+  useEffect(() => {
+    socket.on("userList", setUserList);
+    return () => socket.off("userList");
+  }, []);
 
   // 이모티콘 On/Off 상태 (기본: On)
   const [showEmoticon, setShowEmoticon] = useState(true);
@@ -93,6 +101,11 @@ function App() {
       {!user && <LoginModal onLogin={handleLogin} onRegister={handleRegister} />}
       {user && (
         <>
+          <Draggable bounds="body">
+            <div style={{ position: "fixed", top: 50, right: 20, zIndex: 100 }}>
+              <UserList userList={userList} />
+            </div>
+          </Draggable>
           <MessageContainer
             messageList={messageList}
             user={user}
