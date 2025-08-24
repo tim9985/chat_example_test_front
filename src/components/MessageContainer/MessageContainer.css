@@ -23,13 +23,12 @@
 
 /* 내 메시지 버블 */
 .my-message {
-    background-color: #fef01b; /* 카카오톡 노란색 */
-    color: #333;
-    padding: 8px 12px;
+    padding: 10px 14px; /* 상하 10px, 좌우 14px로 여유 */
     border-radius: 12px;
-    max-width: 90%; /* 최대 너비 */
-    word-break: break-all; /* 긴 단어 자동 줄바꿈 */
-    margin-bottom: 4px; /* 말풍선 간의 간격 */
+    display: flex;
+    align-items: center; /* 이모지와 텍스트 세로 정렬 */
+    line-height: 1.4; /* 텍스트 줄 간격 */
+    background-color: #FEE500; /* ✅ 기본 배경색 추가 (예: 카카오톡 노란색) */
 }
 
 /* 상대방 메시지 컨테이너 */
@@ -41,13 +40,12 @@
 
 /* 상대방 메시지 버블 */
 .your-message {
-    background-color: #ffffff;
-    border: 1px solid #eee;
-    padding: 8px 12px;
+    padding: 10px 14px; /* 상하 10px, 좌우 14px로 여유 */
     border-radius: 12px;
-    max-width: 90%;
-    word-break: break-all;
-    margin-bottom: 4px;
+    display: flex;
+    align-items: center; /* 이모지와 텍스트 세로 정렬 */
+    line-height: 1.4; /* 텍스트 줄 간격 */
+    background-color: #FFFFFF; /* ✅ 기본 배경색 추가 (예: 흰색) */
 }
 
 /* 프로필 이미지 */
@@ -94,3 +92,25 @@
     margin-bottom: 4px; /* 메시지 버블과의 간격 */
     margin-left: 2px;
 }
+
+/* 다크모드 전용 스타일 */
+.App.dark .chat-wrapper {
+    background-color: #111827; /* 어두운 배경 */
+  }
+  
+  .App.dark .my-message {
+    background-color: #3c3c3c;
+  }
+  
+  .App.dark .your-message {
+    background-color: #444;
+  }
+  
+  .App.dark .user-name {
+    color: #aaa;
+  }
+  
+  .App.dark .system-message {
+    color: #bbb;
+  }
+  

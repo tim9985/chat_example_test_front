@@ -12,14 +12,11 @@ function App() {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const [userList, setUserList] = useState([]);
-
-  useEffect(() => {
-    socket.on("userList", setUserList);
-    return () => socket.off("userList");
-  }, []);
-
+  
   // 이모티콘 On/Off 상태 (기본: On)
   const [showEmoticon, setShowEmoticon] = useState(true);
+
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     // DB에서 과거 메시지 불러오기
@@ -35,17 +32,19 @@ function App() {
         console.error(error);
       }
     };
-
     fetchInitialMessages();
 
+    // 실시간 유저 목록 수신
+    socket.on("userList", setUserList);
+    
     // 실시간 메시지 수신 처리
     const handleMessage = (newMessage) => {
       setMessageList((prevState) => [...prevState, newMessage]);
     };
-
     socket.on("message", handleMessage);
 
     return () => {
+      socket.off("userList");
       socket.off("message", handleMessage);
     };
   }, []);
@@ -81,23 +80,25 @@ function App() {
   const sendMessage = (event) => {
     event.preventDefault();
     if (!message.trim()) return;
-
+    
+    // ✅ Flask API 호출 로직을 제거하고, Node.js 백엔드에서 모든 감정 분석을 처리하도록 변경합니다.
+    // Node.js 백엔드에 메시지 문자열만 보냅니다.
     socket.emit("sendMessage", message, (res) => {
       if (res?.ok) {
         setMessage("");
       } else {
+        console.error("메시지 전송 실패:", res.error);
         alert(`메시지 전송 실패: ${res.error}`);
       }
     });
   };
 
-  // 이모티콘 버튼 토글
   const toggleEmoticon = () => {
     setShowEmoticon((prev) => !prev);
   };
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode ? "dark" : ""}`}>
       {!user && <LoginModal onLogin={handleLogin} onRegister={handleRegister} />}
       {user && (
         <>
@@ -106,6 +107,23 @@ function App() {
               <UserList userList={userList} />
             </div>
           </Draggable>
+
+          {/* ✅ 다크모드 토글 버튼 */}
+          <button
+            onClick={() => setDarkMode((prev) => !prev)}
+            style={{
+              position: "fixed",
+              top: 10,
+              right: 20,
+              zIndex: 200,
+              padding: "5px 10px",
+              borderRadius: "8px",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            {darkMode ? "☀️ 라이트모드" : "🌙 다크모드"}
+          </button>
           <MessageContainer
             messageList={messageList}
             user={user}
